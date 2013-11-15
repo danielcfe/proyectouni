@@ -126,19 +126,33 @@ class Usuario_Controller extends CI_Controller{
 	/**
 	//General
 	**/
-			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
+			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion',
+				'correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','DPTO');
  			$crud->unset_texteditor('observacion','full_text');
  			$crud->unset_print();
  			$crud->unset_read();
  			$crud->unset_edit();
  			$crud->unset_delete();
  			$crud->unset_list();
+ 			$crud->display_as('ci','Cedula de identidad')
+ 			->display_as('fecha_nac','Fecha de Nacimiento')
+ 			->display_as('est_civil','Estado Civil')
+ 			->display_as('nivel_instruccion','Nivel de Instrucción')
+ 			->display_as('confirmacion_de_clave','Confirmación de Clave')
+ 			->display_as('congregacion','Congregación')
+ 			->display_as('DPTO','Departamento');
+ 		//	->display_as('confirmacion_de_clave','Confirmación de Clave')
+
+ 			$crud->callback_add_field('DPTO',array($this,'add_field_callback_DPTO'));
+
+
 
 	/**
 	//Validaciones
 	**/
 			if($operation == 'add'){
-					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
+					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave');
+					//,'laico','religioso','congregacion'
 			}elseif($operation == 'edit'){
 						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
 			}
@@ -164,10 +178,11 @@ class Usuario_Controller extends CI_Controller{
 	**/
 
 			$output = $crud->render();
-			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/chosen-icon.js';
-			$output->js_files['hdghjddtjdtjl'] = base_url().'assets/js/icon-array.js';
-			$output->js_files['hdghjddtjdtjy'] = base_url().'assets/js/system-icons.js';
-			$output->css_files['hdghjddtjdtjy'] = base_url().'assets/chosen/chosen.css';
+			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/usuario.js';
+			//$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/chosen-icon.js';
+			//$output->js_files['hdghjddtjdtjl'] = base_url().'assets/js/icon-array.js';
+			//$output->js_files['hdghjddtjdtjy'] = base_url().'assets/js/system-icons.js';
+			//$output->css_files['hdghjddtjdtjy'] = base_url().'assets/chosen/chosen.css';
 
 
 		}catch(Exception $e){
@@ -199,6 +214,35 @@ class Usuario_Controller extends CI_Controller{
 		return $this->db->insert('usuario',$post_array);
 	}
 
+	public function profile($value='')
+	{
+		$js_files['dfsdf'] = base_url().'assets/js/base_dato.js';
+		$this->smarty->assign('process', 'restore');
+		$output = $this->smarty->fetch('usuario/profile.tpl');
+
+	    $this->smarty->assign('output', $output);
+	    $this->smarty->assign('css_files','');
+	    $this->smarty->assign('js_files',$js_files);
+	    $this->smarty->display('index.tpl');
+	}
+
+
+function add_field_callback_DPTO()
+{
+    return '<select id="field-Dpto" name="Dpto" class="chosen-select" data-placeholder="Seleccionar Departamento a Inscribir" >
+    	<option value=""></option>
+    	<option value="BACHILLER">BACHILLER</option>
+    	<option value="TSU">TSU</option>
+    	<option value="UNIVERSITARIO">UNIVERSITARIO</option>
+    	</select>';
+    //chosen-select
+}
+ 
+function add_field_callback_2()
+{
+    return '<input type="text" maxlength="50" value="" name="state" style="width:400px"> ( for U.S. only )';
+}
+	
 /*function field_callback_1($value = '', $primary_key = null)
 {
 	return	'<input id="field-clave" name="clave" type="password" value="'.$value.'" maxlength="60">
