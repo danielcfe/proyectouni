@@ -21,11 +21,11 @@
 		  
 
 			if($operacion == 'insert_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la carrera', 'required|is_unique[carrera.nombre]');
+					    $crud->set_rules('nombre', 'Nombre de la carrera', 'trim|required|is_unique[carrera.nombre]');
 					    $crud->set_rules('descripcion', 'Descripcion de la carrera');
 					}
 			if($operacion == 'update_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la carrera','callback_unique_edit_check[nombre]');
+					    $crud->set_rules('nombre', 'Nombre de la carrera','trim|callback_unique_edit_check[nombre]');
 					    $crud->set_rules('descripcion', 'Descripcion de la carrera');
 					}
 

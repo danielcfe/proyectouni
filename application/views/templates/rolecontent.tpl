@@ -11,16 +11,16 @@
 						
 					</th>
 					<th>
-						Create
+						Crear
 					</th>
 					<th>
-						Read
+						Leer
 					</th>
 					<th>
-						Update
+						Actualizar
 					</th>
 					<th>
-						Delete
+						Borrar
 					</th>
 					<th>
 					</th>

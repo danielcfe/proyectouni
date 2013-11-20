@@ -21,11 +21,11 @@
 		  $crud->required_fields('nombre','descripcion');
 
 			if($operacion == 'insert_validation'){
-					    $crud->set_rules('nombre', 'Nombre del departamento', 'required|is_unique[departamento.nombre]');
+					    $crud->set_rules('nombre', 'Nombre del departamento', 'trim|required|is_unique[departamento.nombre]');
 					    $crud->set_rules('descripcion', 'Descripcion del departamento');
 					}
 			if($operacion == 'update_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la departamento','callback_unique_edit_check[nombre]');
+					    $crud->set_rules('nombre', 'Nombre de la departamento','trim|callback_unique_edit_check[nombre]');
 					    $crud->set_rules('descripcion', 'Descripcion de la departamento');
 					}
 

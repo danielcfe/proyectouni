@@ -14,6 +14,7 @@
 			    $crud = new grocery_CRUD();
 		      	$crud->set_theme('twitter-bootstrap');
 		      	$crud->set_language('spanish');
+
 		     	$crud->set_table('url')
 		      		 ->set_subject('Urls')
 		      		 ->columns('url','is_menu')
@@ -22,7 +23,7 @@
 		      		 ->field_type('system_id', 'hidden', $systemId)
 		      		 ->display_as('is_menu', 'Es menu')
 		      		 ->where('system_id', $systemId);
-
+		      		$crud->change_field_type('operations', 'enum', array('Crear'=>'C','Leer'=>'R','Actualizar'=>'U','Borrar'=>'D'));
 		      	$operation = $crud->getState();
 		      	if($operation == 'insert_validation'){
 		      		$crud->set_rules('url', 'url', 'required|min_length[5]|max_length[79]');
